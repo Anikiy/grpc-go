@@ -1,0 +1,23 @@
+stages:
+  - module-pipelines
+
+#  protos:
+#    stage: module-pipelines
+#    trigger:
+#      include:
+#        - "go-pet/protos/.gitlab-ci.yml"
+#      strategy: depend # depend нужен, если какой-нибудь дочерний пайплайн свалился, мы знали, что общий пайплайн тоже идёт с ошибкой
+#    only:
+#      changes: # как только происходит изменение в папке protos, запускается дочерний пайплайн, который лежит в этой папке
+#        - protos/**/*
+
+sso:
+  stage: module-pipelines
+  trigger:
+    include:
+      - "go-pet/sso/.gitlab-ci.yml"
+    strategy: depend
+  only:
+    changes:  # как только происходит изменение в папке sso, запускается дочерний пайплайн, который лежит в этой папке
+      - sso/**/*
+

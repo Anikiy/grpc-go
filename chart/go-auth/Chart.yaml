@@ -1,0 +1,12 @@
+---
+apiVersion: v2
+type: application
+name: sso
+description: grpc-auth
+
+version: 0.1.0
+appVersion: "latest"
+
+dependencies:
+  - name: grpc-auth
+    version: 0.1.0

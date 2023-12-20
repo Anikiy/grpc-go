@@ -1,0 +1,18 @@
+stages:
+  - build
+  
+
+
+variables:
+  VERSION: 1.0.${CI_PIPELINE_ID}
+
+build-protos-code-job: 
+  stage: build # этап build
+  image: uivmm/taskfile
+  rules: # rules и only в данных случаях взаимозаменяемы
+    - changes: # запуск этого шага только при изменениях в директориях backend
+      - /protos/**/*
+  script:
+    - cd go-pet/protos/
+    - task generate
+

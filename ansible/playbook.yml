@@ -1,0 +1,6 @@
+- hosts: all
+  become: yes
+  roles:
+    - dependencies
+    - k8s_master
+    - k8s_work

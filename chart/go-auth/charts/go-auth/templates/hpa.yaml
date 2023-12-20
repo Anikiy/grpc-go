@@ -1,0 +1,21 @@
+---
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: "{{ .Values.backend_report.hpa.name }}"
+  labels:
+    app: "{{ .Values.backend_report.hpa.name }}"
+spec:
+  minReplicas: {{ .Values.backend_report.hpa.spec.minReplicas }}
+  maxReplicas: {{ .Values.backend_report.hpa.spec.maxReplicas }}
+  scaleTargetRef:
+    apiVersion: "{{ .Values.backend_report.hpa.spec.apiVersion }}"
+    kind: "{{ .Values.backend_report.hpa.spec.kind }}"
+    name: "{{ .Values.backend_report.deployment.name }}"
+  metrics:
+      - type: "{{ .Values.backend_report.hpa.metrics.type.type }}"
+        resource:
+          name: "{{ .Values.backend_report.hpa.metrics.type.name }}"
+          target:
+            type: "{{ .Values.backend_report.hpa.metrics.target.type }}"
+            averageUtilization: {{ .Values.backend_report.hpa.metrics.target.averageUtilization }}

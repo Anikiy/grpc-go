@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ .Values.grpc-auth.deployment.name }}"
+  labels:
+    app.kubernetes.io/name: "grpc-auth"
+    app.kubernetes.io/instance: "prod-store"
+    app.kubernetes.io/version: "{{ .Chart.Version }}"
+    app.kubernetes.io/managed-by: "{{ .Release.Service }}"
+    helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    app.kubernetes.io/component: "grpc-auth"
+    app.kubernetes.io/part-of: sso
+spec:
+  replicas: {{ .Values.grpc-auth.deployment.spec.replicas }}
+  revisionHistoryLimit: {{ .Values.grpc-auth.deployment.spec.revisionHistoryLimit }}
+  strategy:
+    type: "{{ .Values.grpc-auth.deployment.type }}"
+  selector:
+    matchLabels:
+      app: "{{ .Values.grpc-auth.deployment.name }}"
+  template:
+    metadata:
+      labels:
+        app: "{{ .Values.grpc-auth.deployment.name }}"
+    spec:
+      containers:
+        - name: "{{ .Values.grpc-auth.deployment.spec.containers.name }}"
+          image: "{{ .Values.grpc-auth.deployment.spec.containers.image }}"
+          imagePullPolicy: "{{ .Values.grpc-auth.deployment.spec.containers.imagePullPolicy }}"
+          ports: 
+            - name: "{{ .Values.grpc-auth.deployment.name }}"
+              containerPort: {{ .Values.grpc-auth.deployment.spec.containers.ports }}
+      imagePullSecrets:
+        - name: "{{ .Values.grpc-auth.deployment.spec.imagePullSecrets }}"
+      volumes:
+        - name: "{{ .Values.grpc-auth.configmap }}"
+          configMap:
+            name: "{{ .Values.grpc-auth.configmap }}"
+            items:
+            - key: "{{ .Values.grpc-auth.configmap }}"
+              path: "{{ .Values.grpc-auth.configmap }}"

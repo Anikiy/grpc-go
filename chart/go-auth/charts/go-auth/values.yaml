@@ -1,0 +1,28 @@
+grpc-auth:
+ name: grpc-auth
+ deployment:
+  name: grpc-auth
+  spec:
+    replicas: 3 
+    revisionHistoryLimit: 15
+    type: Recreate
+    containers:
+      name: grpc-auth
+      image: "link to the repository, where the image is stored example: gitlab.domain.ru:5050/go-auth:latest "
+      imagePullPolicy: IfNotPresent
+      ports: 8080
+    imagePullSecrets: docker-config-secret
+ hpa:
+  name: grpc-auth
+  spec:
+    minReplicas: 1
+    maxReplicas: 5
+    apiVersion: apps/v1
+    kind: Deployment
+  metrics:
+    type:
+      type: Resource
+      name: cpu
+    target:
+      type: Utilization
+      averageUtilization: 75 
