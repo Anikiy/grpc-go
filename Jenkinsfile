@@ -5,6 +5,7 @@ pipeline {
         agent {
             docker {
                 image 'uivmm/taskfile'
+                reuseNode true
             }
         }
       steps {
