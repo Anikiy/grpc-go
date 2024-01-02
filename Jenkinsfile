@@ -8,7 +8,7 @@ pipeline {
             }
         }
       steps {
-          dir("grpc/protos") { // Переходим в папку protos
+          dir("protos/") { // Переходим в папку protos
               sh 'task generate' // Собираем мавеном бэкенд
           }
         }
