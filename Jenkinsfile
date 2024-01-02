@@ -1,14 +1,18 @@
 pipeline {
   agent any
-  stages {
-
-    stage('Stage 1') {
-      steps {
-        script {
-          echo 'hello'
-          git branch: 'main', credentialsId: 'ssh-key', url: 'https://github.com/Anikiy/grpc-go'
+  stages ('protos') {
+    stage('build') {
+        agent {
+            docker {
+                image 'uivmm/taskfile'
+            }
         }
-      }
+      steps {
+          dir("grpc/protos") { // Переходим в папку protos
+              sh 'task generate' // Собираем мавеном бэкенд
+          }
+        }
+
     }
   }
 
