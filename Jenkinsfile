@@ -3,13 +3,11 @@ pipeline {
   stages ('protos') {
     stage('build') {
         agent {
-            docker { image 'uivmm/taskfile' }
-        }
-      steps {
-          dir("protos/") { // Переходим в папку protos
-              sh 'task generate' // Собираем мавеном бэкенд
-          }
-        }
+                docker { image 'maven:3.9.6-eclipse-temurin-17-alpine' }
+            }
+            steps {
+                sh 'mvn --version'
+            }
 
     }
   }
