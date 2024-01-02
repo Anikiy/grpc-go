@@ -1,5 +1,5 @@
 pipeline {
-  agent any
+  agent maven
   stages ('protos') {
     stage('build') {
             steps {
