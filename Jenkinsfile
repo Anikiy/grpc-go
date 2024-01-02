@@ -1,12 +1,9 @@
 pipeline {
-  agent any
+  agent none
   stages ('protos') {
     stage('build') {
         agent {
-            docker {
-                image 'uivmm/taskfile'
-                reuseNode true
-            }
+            docker { image 'uivmm/taskfile' }
         }
       steps {
           dir("protos/") { // Переходим в папку protos
