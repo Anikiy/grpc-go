@@ -7,7 +7,7 @@ podTemplate(yaml: '''
               spec:
                 containers:
                 - name: uivmm/taskfile
-                  image: uivmm/taskfile
+                  image: uivmm/taskfile:latest
                   command:
                   - sleep
                   args:
