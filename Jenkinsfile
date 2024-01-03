@@ -4,7 +4,7 @@
 pipeline {
     agent any
     stages {
-podTemplate(yaml: '''
+    podTemplate(yaml: '''
               apiVersion: v1
               kind: Pod
               spec:
@@ -36,7 +36,7 @@ podTemplate(yaml: '''
                   hostPath:
                     path: /var/run/docker.sock
 
-''') {
+    ''') {
   node(POD_LABEL) {
     stage('Build a Golang project') {
       git url: 'https://github.com/Anikiy/grpc-go', branch: 'main'
