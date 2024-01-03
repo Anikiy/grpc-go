@@ -4,7 +4,7 @@
 # Обобщенное описание директорий
 
 ├── ansible // playbook для k8s кластера, модуль flannel  
-├── chart // чарты gilab и go-auth    
+├── chart // чарты gilab, jenkins и go-auth    
 ├── go-pet // исходники go-auth     
 └── terraform // модули terraform для работы в yandex-cloud      
 
