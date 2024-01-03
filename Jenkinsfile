@@ -6,8 +6,8 @@ podTemplate(yaml: '''
               kind: Pod
               spec:
                 containers:
-                - name: taskfile
-                  image: uivmm/taskfile:latest
+                - name: golang
+                  image: golang:latest
                   command:
                   - sleep
                   args:
@@ -21,14 +21,11 @@ podTemplate(yaml: '''
                     path: /var/run/docker.sock
 ''') {
   node(POD_LABEL) {
-    stage('protos') {
-      git 'https://github.com/Anikiy/grpc-go'
-       dir("/go-pet/protos") { 
-        container('docker') {
-        sh 'docker info '
-
+    stage('sso') {
+      git 'https://github.com/Anikiy/grpc-go', branch: 'main'
+        container('golang') {
+        sh 'pwd'
       }
-    }
   }
 }
 }
