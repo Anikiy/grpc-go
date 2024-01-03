@@ -27,8 +27,9 @@ podTemplate(yaml: '''
         sh 'pwd'
         sh 'ls -la'
         sh 'cd go-pet/sso/'
+        sh 'ls -la'
         sh 'docker info'
-        sh 'docker build --build-arg VERSION=1.0--tag go-auth:1.0'
+        sh 'docker build --build-arg VERSION=1.0 --tag go-auth:1.0'
         
       }
   }
