@@ -24,12 +24,9 @@ podTemplate(yaml: '''
     stage('Build a Golang project') {
       git url: 'https://github.com/Anikiy/grpc-go', branch: 'main'
         container('docker') {
-        sh 'pwd'
-        sh 'ls -la'
-        sh 'cd go-pet/sso'
         sh 'ls -la'
         sh 'docker info'
-        sh 'docker build --build-arg VERSION=1.0 --tag go-auth:1.0'
+        sh 'cd go-pet/sso && docker build --build-arg VERSION=1.0 --tag go-auth:1.0'
         
       }
   }
