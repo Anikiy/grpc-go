@@ -38,10 +38,9 @@
       }
     }
     stage('Test') {
-      def scannerHome = tool 'SonarScanner 4.0';
       git url: 'https://github.com/Anikiy/grpc-go', branch: 'main'
         withSonarQubeEnv('sonar'){
-            sh 'cd go-pet/sso && ${scannerHome}/bin/sonar-scanner ./'
+            sh 'cd go-pet/sso && sonar-scanner ./'
         }
         
     }
