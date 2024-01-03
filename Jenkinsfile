@@ -1,9 +1,6 @@
   /*
 “Docker-outside-of-Docker”: runs a Docker-based build by connecting a Docker client inside the pod to the host daemon.
 */
-pipeline {
-    agent any
-    stages {
     podTemplate(yaml: '''
               apiVersion: v1
               kind: Pod
@@ -28,13 +25,6 @@ pipeline {
                   - sleep
                   args:
                   - 99d
-                  volumeMounts:
-                  - name: dockersock
-                    mountPath: /var/run/docker.sock
-                volumes:
-                - name: dockersock
-                  hostPath:
-                    path: /var/run/docker.sock
 
     ''') {
   node(POD_LABEL) {
@@ -48,10 +38,12 @@ pipeline {
       }
     }
     stage('Test') {
+      def scannerHome = tool 'SonarScanner 4.0';
       git url: 'https://github.com/Anikiy/grpc-go', branch: 'main'
-        container('sonar')
+        withSonarQubeEnv('sonar'){
+            sh 'cd go-pet/sso && ${scannerHome}/bin/sonar-scanner ./'
+        }
+        
     }
-}
-}
 }
 }
