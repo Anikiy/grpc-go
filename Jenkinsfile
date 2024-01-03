@@ -6,8 +6,8 @@ podTemplate(yaml: '''
               kind: Pod
               spec:
                 containers:
-                - name: golang
-                  image: golang:latest
+                - name: docker
+                  image: docker:19.03.1
                   command:
                   - sleep
                   args:
@@ -23,9 +23,13 @@ podTemplate(yaml: '''
   node(POD_LABEL) {
     stage('Build a Golang project') {
       git url: 'https://github.com/Anikiy/grpc-go', branch: 'main'
-        container('golang') {
+        container('docker') {
         sh 'pwd'
         sh 'ls -la'
+        sh 'cd go-pet/sso/'
+        sh 'docker info'
+        sh 'docker build --build-arg VERSION=1.0--tag go-auth:1.0'
+        
       }
   }
 }
