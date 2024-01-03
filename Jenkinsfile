@@ -1,4 +1,3 @@
-pipeline {
   /*
 “Docker-outside-of-Docker”: runs a Docker-based build by connecting a Docker client inside the pod to the host daemon.
 */
@@ -29,6 +28,4 @@ podTemplate(yaml: '''
       }
     }
   }
-}
-
 }
