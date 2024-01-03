@@ -25,6 +25,7 @@ podTemplate(yaml: '''
       git url: 'https://github.com/Anikiy/grpc-go', branch: 'main'
         container('golang') {
         sh 'pwd'
+        sh 'ls -la'
       }
   }
 }
