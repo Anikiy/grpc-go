@@ -1,6 +1,7 @@
   /*
 “Docker-outside-of-Docker”: runs a Docker-based build by connecting a Docker client inside the pod to the host daemon.
 */
+pipeline {
 podTemplate(yaml: '''
               apiVersion: v1
               kind: Pod
@@ -19,6 +20,20 @@ podTemplate(yaml: '''
                 - name: dockersock
                   hostPath:
                     path: /var/run/docker.sock
+                - name: sonar
+                  image: sonarqube:latest
+                  command:
+                  - sleep
+                  args:
+                  - 99d
+                  volumeMounts:
+                  - name: dockersock
+                    mountPath: /var/run/docker.sock
+                volumes:
+                - name: dockersock
+                  hostPath:
+                    path: /var/run/docker.sock
+
 ''') {
   node(POD_LABEL) {
     stage('Build a Golang project') {
@@ -29,6 +44,11 @@ podTemplate(yaml: '''
         sh 'cd go-pet/sso && docker build --build-arg VERSION=1.0 --tag go-auth:1.0 .'
         
       }
-  }
+    }
+    stage('Test') {
+      git url: 'https://github.com/Anikiy/grpc-go', branch: 'main'
+        container('sonar')
+    }
+}
 }
 }
