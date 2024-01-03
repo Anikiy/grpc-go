@@ -38,8 +38,7 @@
       }
     }
     stage('Test') {
-      git url: 'https://github.com/Anikiy/grpc-go', branch: 'main'
-        withSonarQubeEnv('sonar'){
+        container('sonar'){
             sh 'cd go-pet/sso && sonar-scanner ./'
         }
         
