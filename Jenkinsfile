@@ -3,7 +3,7 @@
 */
 pipeline {
     agent none
-    stages{
+    stages {
 podTemplate(yaml: '''
               apiVersion: v1
               kind: Pod
