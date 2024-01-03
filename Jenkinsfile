@@ -21,8 +21,8 @@ podTemplate(yaml: '''
                     path: /var/run/docker.sock
 ''') {
   node(POD_LABEL) {
-    stage('sso') {
-      git 'https://github.com/Anikiy/grpc-go', branch: 'main'
+    stage('Build a Golang project') {
+      git url: 'https://github.com/Anikiy/grpc-go', branch: 'main'
         container('golang') {
         sh 'pwd'
       }
