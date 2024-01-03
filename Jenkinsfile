@@ -22,10 +22,13 @@ podTemplate(yaml: '''
 ''') {
   node(POD_LABEL) {
     stage('Build Docker image') {
-      git 'https://github.com/jenkinsci/docker-inbound-agent.git'
-      container('docker') {
-        sh 'docker build -t jenkins/inbound-agent .'
+      git 'https://github.com/Anikiy/grpc-go'
+       dir("/go-pet/protos") { 
+        container('docker') {
+        sh 'docker info '
+
       }
     }
   }
+}
 }
