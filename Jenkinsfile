@@ -3,6 +3,7 @@
 */
 pipeline {
     agent none
+    stages{
 podTemplate(yaml: '''
               apiVersion: v1
               kind: Pod
@@ -50,6 +51,7 @@ podTemplate(yaml: '''
       git url: 'https://github.com/Anikiy/grpc-go', branch: 'main'
         container('sonar')
     }
+}
 }
 }
 }
