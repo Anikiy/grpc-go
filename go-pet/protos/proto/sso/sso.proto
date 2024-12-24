@@ -49,3 +49,4 @@ message LogoutRequest {
 message LogoutResponse {
   bool success = 1; // Indicates whether the logout was successful.
 }
+// чипи-чипи чапа-чапа
